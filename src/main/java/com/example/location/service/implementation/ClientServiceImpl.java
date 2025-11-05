@@ -32,8 +32,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client addClient(Client client) {
-        if(clientRepository.findById(client.getId()).isPresent()){
-            throw new IllegalArgumentException("Client already exists");
+        if (client.getEmail() != null && clientRepository.existsByEmail(client.getEmail())) {
+                throw new IllegalArgumentException("Un client avec cet email existe déjà !");
         }
         return clientRepository.save(client);
     }
